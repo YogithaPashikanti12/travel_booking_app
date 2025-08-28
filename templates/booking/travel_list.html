@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Available Travel Options</h2>
+<form method="get" class="row g-2 my-3">
+    <div class="col-md-2">
+        <select name="type" class="form-select">
+            <option value="">All</option>
+            <option value="Flight" {% if filters.type == 'Flight' %}selected{% endif %}>Flight</option>
+            <option value="Train" {% if filters.type == 'Train' %}selected{% endif %}>Train</option>
+            <option value="Bus" {% if filters.type == 'Bus' %}selected{% endif %}>Bus</option>
+        </select>
+    </div>
+    <div class="col-md-3"><input class="form-control" name="source" placeholder="Source" value="{{ filters.source }}"></div>
+    <div class="col-md-3"><input class="form-control" name="destination" placeholder="Destination" value="{{ filters.destination }}"></div>
+    <div class="col-md-2"><input type="date" class="form-control" name="date" value="{{ filters.date }}"></div>
+    <div class="col-md-2"><button class="btn btn-secondary w-100">Search</button></div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Date & Time</th>
+            <th>Price</th>
+            <th>Seats</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for t in items %}
+        <tr>
+            <td>{{ t.type }}</td>
+            <td>{{ t.source }}</td>
+            <td>{{ t.destination }}</td>
+            <td>{{ t.date_time|date:"Y-m-d H:i" }}</td>
+            <td>{{ t.price }}</td>
+            <td>{{ t.available_seats }}</td>
+            <td>
+                {% if t.available_seats > 0 %}
+                <a class="btn btn-sm btn-primary" href="{% url 'book' t.pk %}">Book</a>
+                {% else %}
+                <span class="badge bg-secondary">Sold Out</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="7" class="text-center">No results.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

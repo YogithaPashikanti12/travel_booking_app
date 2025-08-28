@@ -1,0 +1,37 @@
+
+
+# -----------------
+# Python
+# -----------------
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# -----------------
+# Django
+# -----------------
+db.sqlite3          # ignore SQLite DB (we are using MySQL)
+staticfiles/        # ignore collected static files (use collectstatic in deploy)
+
+# -----------------
+# Environments
+# -----------------
+.env                # ignore secrets (SECRET_KEY, DB password, etc.)
+.venv/              # common virtualenv folder
+venv/               # another common name
+pythonenv/          # your custom virtualenv folder
+
+# -----------------
+# IDE / Editor files
+# -----------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# -----------------
+# OS files
+# -----------------
+.DS_Store
+Thumbs.db
